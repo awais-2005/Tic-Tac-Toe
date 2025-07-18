@@ -71,7 +71,7 @@ move.addEventListener('click', function(details) {
     
     if(checkWin()) {
         const msg = document.querySelector('.gameover');
-        msg.textContent += " Congrats You Won!"
+        msg.textContent = " Congrats You Won!"
         setTimeout(() => {
             msg.style.visibility = 'visible';
         }, 300)
@@ -92,7 +92,7 @@ move.addEventListener('click', function(details) {
                 
                 if(checkWin()) {
                     const msg = document.querySelector('.gameover');
-                    msg.textContent += "\nComputer Won!"
+                    msg.textContent = "\nComputer Won!"
                     setTimeout(() => {
                         msg.style.visibility = 'visible';
                     }, 300)

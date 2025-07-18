@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(to right, #f75830, #feb47b);
+    background-color: #93DA97;
 }
 .main {
     background: transparent;
@@ -20,8 +20,8 @@ body {
     transform: translate(-50%, -50%);
 }
 .box {
-    color: aliceblue;
-    background-color: #7fffd4;
+    color: #E8FFD7;
+    background-color: #3E5F44;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,8 +44,8 @@ body {
 .gameover {
     height: 285px;
     width: 255px;
-    background: #ff5858;
-    color:aliceblue;
+    background: #5E936C;
+    color:#E8FFD7;
     font-size: 25px;
     visibility: hidden;
     display: flex;
