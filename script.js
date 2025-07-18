@@ -3,7 +3,7 @@ import { brain_of_comp } from "./skills.js"
 var boardState = ['',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 var pattern = Math.floor(Math.random()*10) % 3;
 var turn = 0;
-
+var wins = 0, losts = 0, draws = 0; 
 function checkWin() {
     if((boardState[1] == 'X' && boardState[2] == 'X' && boardState[3] == 'X')||(boardState[4] == 'X' && boardState[5] == 'X' && boardState[6] == 'X')
 	||(boardState[7] == 'X' && boardState[8] == 'X' && boardState[9] == 'X')||(boardState[1] == 'X' && boardState[4] == 'X' && boardState[7] == 'X')
@@ -38,7 +38,8 @@ function displayboard(C_box, turn, position) {
 function gameover(turn) {
     if (turn >= 9) {
         document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
-        console.log(boardState)
+        console.log(boardState);
+        document.getElementById('ndrawn').innerText = ++draws ;
         return true; // Indicate that the game is over
     }
     else {
@@ -69,6 +70,7 @@ board.addEventListener('click', function(details) {
     
     if(checkWin()) {
         document.getElementById("result").innerText="You won!"
+        document.getElementById('nwon').innerText = ++wins ;
         document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
         return;
     }
@@ -80,13 +82,14 @@ board.addEventListener('click', function(details) {
         let repeat = true;
         
         while (repeat && turn < 10) {
-            let compboard = brain_of_comp(boardState, turn, ref, pattern);
-            const C_box = document.getElementById('box' + compboard);
+            let compMove = brain_of_comp(boardState, turn, ref, pattern);
+            const C_box = document.getElementById('box' + compMove);
             if (C_box.innerHTML === C_box.textContent) {
-                displayboard(C_box, turn, compboard);                
+                displayboard(C_box, turn, compMove);                
                 
                 if(checkWin()) {
                     document.getElementById("result").innerText="Computer won!"
+                    document.getElementById('nlost').innerText = ++losts ;
                     document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
                     return;
                 }
