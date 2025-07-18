@@ -2,14 +2,12 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #93DA97;
+    background-color: #93da97;
 }
 .main {
     background: transparent;
-    height: 17.5vw;
+    height: 23.8vw;
     width: 27vw;
-    min-height: 300px;
-    min-width: 300px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -26,7 +24,6 @@ body {
     align-items: center;
     justify-content: center;
     margin: 5px;
-    font-size: large;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 700;
     font-size: 2rem;
@@ -42,9 +39,9 @@ body {
 }
 
 .gameover {
-    height: 285px;
-    width: 255px;
-    background: #5E936C;
+    height: 100%;
+    width: 89%;
+    background: hsla(136, 22%, 47%, 0.8);
     color:#E8FFD7;
     font-size: 25px;
     display: flex;
@@ -52,7 +49,6 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    opacity: 0.9;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
@@ -70,10 +66,25 @@ body {
     width: 120px;
     border: none;
     border-radius: 8px;
-    opacity: 1;
     font-weight: 700;
+    box-shadow: 3px 3px 5px 0px #93da97; 
     transition: transform 0.07s ease-in-out;
 }
 #rematch:active {
     transform: scale(0.9);
+}
+
+@media (max-width: 600px) {
+    .main {
+        width: 100%;
+        height: 83vw;
+    }
+    .box {
+        width: 25vw;
+        height: 25vw;
+    }
+    .gameover {
+        width: 82vw;
+        height: 82vw;
+    }
 }

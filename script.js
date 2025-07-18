@@ -106,7 +106,7 @@ rematch.addEventListener('click', function(){
     boardState = ['',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     turn = 0; // number of current turn
     setTimeout(() => {
-        document.getElementById('result').innerText = "Match is Drawn! Because you're stronge!";
+        document.getElementById('result').innerText = "Match is Drawn!";
     }, 300);
     let boxes = document.querySelectorAll('.box')
     let i = 1;
