@@ -47,7 +47,6 @@ body {
     background: #5E936C;
     color:#E8FFD7;
     font-size: 25px;
-    visibility: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,8 +59,8 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease-in-out;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.2s ease-in-out;
 }
 #rematch {
     background-color: #3E5F44;

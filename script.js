@@ -37,8 +37,7 @@ function displayboard(C_box, turn, position) {
 
 function gameover(turn) {
     if (turn >= 9) {
-        const msg = document.querySelector('.gameover');
-        setTimeout(() => {msg.style.visibility = 'visible';}, 300)
+        document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
         console.log(boardState)
         return true; // Indicate that the game is over
     }
@@ -69,11 +68,8 @@ board.addEventListener('click', function(details) {
     displayboard(box, turn, position); // Display the board in the clicked box, also storing position
     
     if(checkWin()) {
-        const msg = document.querySelector('.gameover');
         document.getElementById("result").innerText="You won!"
-        setTimeout(() => {
-            msg.style.visibility = 'visible';
-        }, 300)
+        document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
         return;
     }
     if (gameover(turn)) {
@@ -90,11 +86,8 @@ board.addEventListener('click', function(details) {
                 displayboard(C_box, turn, compboard);                
                 
                 if(checkWin()) {
-                    const msg = document.querySelector('.gameover');
                     document.getElementById("result").innerText="Computer won!"
-                    setTimeout(() => {
-                        msg.style.visibility = 'visible';
-                    }, 300)
+                    document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(1)";
                     return;
                 }
                 else if (gameover(turn)) {
@@ -109,9 +102,12 @@ board.addEventListener('click', function(details) {
 
 const rematch = document.getElementById("rematch")
 rematch.addEventListener('click', function(){
+    document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(0)";   
     boardState = ['',' ',' ',' ',' ',' ',' ',' ',' ',' ']
-    turn = 0;
-    document.querySelector('.gameover').style.visibility = 'hidden';
+    turn = 0; // number of current turn
+    setTimeout(() => {
+        document.getElementById('result').innerText = "Match is Drawn! Because you're stronge!";
+    }, 300);
     let boxes = document.querySelectorAll('.box')
     let i = 1;
     for (let box of boxes) {
