@@ -49,6 +49,7 @@ body {
     font-size: 25px;
     visibility: hidden;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
@@ -61,4 +62,19 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease-in-out;
+}
+#rematch {
+    background-color: #3E5F44;
+    color: #E8FFD7;
+    font-family: 'Courier New', Courier, monospace;
+    height: 40px;
+    width: 120px;
+    border: none;
+    border-radius: 8px;
+    opacity: 1;
+    font-weight: 700;
+    transition: transform 0.07s ease-in-out;
+}
+#rematch:active {
+    transform: scale(0.9);
 }
