@@ -19,18 +19,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: Impact,'Arial Narrow Bold', sans-serif;
-    color: #E8FFD7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: -1px;
+    color: transparent;
     font-weight: bolder;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     font-size: 1.5rem;
-    -webkit-text-stroke: #2b4d31 0.5px ;
+    -webkit-text-stroke: #fff 0.4px ;
     padding: 0 35px;
     z-index: 10;
 }
 #menu {
-    -webkit-text-stroke: #2b4d31 0px;
+    -webkit-text-stroke: #fff 0.5px;
 }
 #menuCon {
     width: 50px;
@@ -234,7 +235,7 @@ body {
 }
 .autoToss p {
     position: relative;
-    top: 92%;
+    top: 85%;
     right: -50%;
     transform: translate(-50%, -50%);
     color: #E8FFD7;
@@ -244,7 +245,7 @@ body {
 }
 .outer {
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
@@ -272,7 +273,7 @@ body {
     height: 1.75rem;
     border-radius: 25px;
     background-color: #E8FFD7;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.404) inset;
+    box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.404) inset;
     transition: all 0.15s ease-in;
     cursor: pointer;
     z-index: 3;
@@ -302,7 +303,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: calc(50vh - 180px);
+    margin-top: calc(50vh - 150px);
     margin-left: 50%;
     transform: translate(-50%, -50%);
 }

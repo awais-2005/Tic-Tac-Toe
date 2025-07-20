@@ -17,7 +17,6 @@ function checkWin() {
 	||(boardState[2] == 'O' && boardState[5] == 'O' && boardState[8] == 'O')||(boardState[3] == 'O' && boardState[6] == 'O' && boardState[9] == 'O')
 	||(boardState[1] == 'O' && boardState[5] == 'O' && boardState[9] == 'O')||(boardState[3] == 'O' && boardState[5] == 'O' && boardState[7]=='O')){
 	    return true;
-
     }
     else{
         return false;
@@ -26,11 +25,11 @@ function checkWin() {
 
 function displayboard(C_box, turn, position) {
     if (turn % 2 === 0) {
-        C_box.innerHTML = '<img src="/public/tick.svg" alt="O" width="60" color="white">';
+        C_box.innerHTML = '<i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>';
         C_box.style.backgroundColor = '#42af54';
         boardState[position] = 'O';
     } else {
-        C_box.innerHTML = '<img src="/public/cross.svg" alt="X" width="70" color="white">';
+        C_box.innerHTML = '<i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>';
         C_box.style.backgroundColor = '#ff5858';
         boardState[position] = 'X';
     }
@@ -80,7 +79,7 @@ tossToggle.addEventListener('click', function() {
         toggled = false;
         innerCircle.style.left = '2.5px';
         innerCircle.style.backgroundColor = '#E8FFD7';
-        innerCircle.style.boxShadow = '5px 5px 10px 0px rgba(0, 0, 0, 0.404) inset';
+        innerCircle.style.boxShadow = '-5px -5px 10px 0px rgba(0, 0, 0, 0.404) inset';
         _state.innerText = 'Off';
         _state.style.position = 'absolute';
         _state.style.left = '85%';
@@ -129,9 +128,9 @@ toss.addEventListener('click', function(details) {
         faces.forEach((val) => {
             val.style.transform = "scale(0) translate(110%)";
             val.style.display = "block";
-            requestAnimationFrame(() => {
+            setTimeout(() => {requestAnimationFrame(() => {
                 val.style.transform = "scale(1) translate(0%)";
-            });
+            });}, 100);
         });
     }, 300);
 });
