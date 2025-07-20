@@ -1,12 +1,48 @@
 * {
     box-sizing: border-box;
     cursor: default;
+    -webkit-tap-highlight-color: transparent;
+}
+*::selection {
+    background-color: transparent;
 }
 body {
     background-color: #93da97;
 }
+#nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    background-color: #5E936C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Impact,'Arial Narrow Bold', sans-serif;
+    color: #E8FFD7;
+    font-weight: bolder;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 1.5rem;
+    -webkit-text-stroke: #2b4d31 0.5px ;
+    padding: 0 35px;
+    z-index: 10;
+}
+#menu {
+    -webkit-text-stroke: #2b4d31 0px;
+}
+#menuCon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: transparent;
+}
 #info {
-    margin-top: 30px;
+    margin-top: 90px;
     background-color: transparent;
     width: 315px;
     height: 175px;
@@ -101,7 +137,7 @@ body {
     overflow: hidden;
 }
 #toss {
-    position: relative;
+    position: absolute;
     top: 6px;
     left: 6px;
     height: 86px;
@@ -110,17 +146,38 @@ body {
     background-color: #3E5F44;
     font-size: 1rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     box-shadow: 2px 2px 5px 0px #93da97; 
-    transition: all 0.1s ease-in-out;
+    transition: all 0.3s ease-in-out;
     transform: scale(1);
+}
+#toss p {
+    position: relative;
+    top: -5px;
+    width: 100%;
+    height: 100%;
+    color: #E8FFD7;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    text-align: center;
 }
 #toss:active {
     transform: scale(0.97);
     box-shadow: 0px 0px 0px 0px #93da97;
+}
+.threeDot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #5E936C;
+    color: #3E5F44;
 }
 .faces {
     position: relative;
@@ -135,8 +192,8 @@ body {
     background-color: #93da97;
     text-align: center;
     padding: 5% 0 0 0;
-    transition: transform 0.1s ease-in-out;
-    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+    transform: scale(0) translate(110%);
     display: none;
 }
 .faces:active {
@@ -156,9 +213,85 @@ body {
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    transform: scale(0);
+    transform: scale(0) translate(110%);
     display: none;;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.autoToss {
+    position: absolute;
+    top: 4.5%;
+    left: 3%;
+    width: 94%;
+    height: 91%;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    background-color: #3E5F44;
+    transform: scale(0) translate(-110%);
+    display: none;
+    transition: all 0.3s ease-in-out;
+    
+}
+.autoToss p {
+    position: relative;
+    top: 92%;
+    right: -50%;
+    transform: translate(-50%, -50%);
+    color: #E8FFD7;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 1rem;
+}
+.outer {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 35%;
+    box-shadow: 1px 1px 10px 0px black inset;
+    border-radius: 25px;
+    background-color: #5E936C;
+}
+.outer p {
+    position: absolute;
+    top: 10%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    color: #3E5F44;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 2.5px;
+    transform: translate(0%, -50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 25px;
+    background-color: #E8FFD7;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.404) inset;
+    transition: all 0.15s ease-in;
+    cursor: pointer;
+    z-index: 3;
+
+}
+.back {
+    position: absolute;
+    top: 22%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #5E936C;
+    color: #3E5F44;
+    font-size: 1.5rem;
 }
 .main {
     background: transparent;
@@ -169,7 +302,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: calc(50vh - 140px);
+    margin-top: calc(50vh - 180px);
     margin-left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -233,7 +366,8 @@ body {
     box-shadow: 0px 0px 0px 0px #93da97;
 }
 
-@media (min-width: 401px) {
+
+@media (min-width: 521px) {
     .main {
         height: 315px;
         width:400px;
@@ -246,18 +380,61 @@ body {
         width: 95px;
     }
 }
-
-@media (max-width: 400px) {
-    .main {
+@media  (min-height: 700px) {
+    #info {
+        margin-top: 150px;
+    }
+    .main{
+        margin-top: calc(50vh - 220px);
+    }
+}
+@media (max-width: 520px) {
+    #info {
         width: 100%;
-        height: 83vw;
+        height: 150px;
+        
+    }
+    .con {
+        margin-left: 6.2%;  
+        width: 160px;
+    }
+    #status {
+        margin-right: 15px;
+    }
+    #mode {
+        margin-right: 15px;
+    }
+    .main {
+        padding: 0px;
+        width: 100%;
+        height: 88vw;
+        margin-top: calc(50vh - 200px);
     }
     .box {
-        width: 25vw;
-        height: 25vw;
+        min-width: 27vw;
+        min-height: 27vw;
     }
     .gameover {
-        width: 82vw;
-        height: 82vw;
+        width: 90vw;
+        height: 90vw;
+    }
+}
+@media (max-width: 390px) and (min-height: 600px) {
+    .main {
+        width: 100%;
+        height: 90vw;
+        margin-top: calc(50vh - 140px);
+    }
+    .con {
+        width: 38vw;
+    }
+    #status {
+        width: 38vw;
+    }
+    #mode {
+        width: 38vw;
+    }
+    #toss {
+        width: 91%;
     }
 }

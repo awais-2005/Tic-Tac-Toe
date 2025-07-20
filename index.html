@@ -6,9 +6,14 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/public/favicon.png" image="/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <script type="module" src="script.js"></script>
 <body>
+    <div id="nav">
+        <div id="currentMode">Against Bot</div>
+        <div id="menuCon"><i class="ri-menu-fill" id="menu"></i></div>
+    </div>
     <div id="info">
         <div class="con">
             <div class="resfield" id="won">Won</div>
@@ -26,11 +31,21 @@
             <button id="hard">Off</button>
         </div>
         <div id="status">
-            <div id="toss">Click<br>to<br>Toss!</div>
+            <div id="toss">
+                <p>Click<br>to<br>Toss!</p>
+                <div class="threeDot"><i class="ri-more-2-fill"></i></div>
+            </div>
+            <div class="autoToss">
+                <div class="back"><i class="ri-arrow-left-s-line"></i></div>
+                <p>Auto Toss</p>
+                <div class="outer">
+                    <p id="state">Off</p>
+                    <div class="inner"></div>
+                </div>
+            </div>
             <div class="faces">Heads</div>
             <div class="faces">Tails</div>
             <div id="update">Memes</div>
-            
         </div>
     </div>
     <div class="main">

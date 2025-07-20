@@ -1,5 +1,6 @@
-var turn2, q, ref, currentMove, re_game, board;
-export function brain_of_comp(booard, nth_move, gait, pattern){
+let turn2, q, ref, currentMove, re_game, board, godMode;
+export function brain_of_comp(booard, nth_move, gait, pattern, mode){
+	godMode = mode;
     board = booard;
     q = nth_move;
     ref = gait;
@@ -10,28 +11,30 @@ export function brain_of_comp(booard, nth_move, gait, pattern){
 	if(turn2 == 0){
 	 	stop_opp(board);
     }
-    if(turn2 == 0){
-        skill_n1(board);
-    }
-	if(q == 4 && turn2 == 0){
-		skill_n2(board);
- 	}
-	if(q == 4 && turn2 == 0){
-		skill_n3(board);
- 	}
-    if(turn2 == 0 && ref != 1 && re_game == 2){
-    	skill_n4(board);
-    }
-    if((ref != 5 || ref != 1 || re_game == 1) && turn2 == 0){
-		skill_n5(board);
+    if(godMode) {
+		if(turn2 == 0){
+			skill_n1(board);
+		}
+		if(q == 4 && turn2 == 0){
+			skill_n2(board);
+		}
+		if(q == 4 && turn2 == 0){
+			skill_n3(board);
+		}
+		if(turn2 == 0 && ref != 1 && re_game == 2){
+			skill_n4(board);
+		}
+		if((ref != 5 || ref != 1 || re_game == 1) && turn2 == 0){
+			skill_n5(board);
+		}
+		if((ref == 1 || ref == 5 || re_game == 0) && turn2 == 0){
+			skill_n6(board);
+		}
 	}
-	if((ref == 1 || ref == 5 || re_game == 0) && turn2 == 0){
-		skill_n6(board);
-	}
     if(turn2 == 0){
+		console.log("Random Move"); // For debugging purposes
     	turn2 = randomMove(board);
 	}
-    console.log("Move is returned!")
     return turn2;
 }
 export function wining_move(board){
@@ -290,11 +293,13 @@ export function skill_n6(board){
 	}
 }
 export function randomMove(board) {
-    for (let i = 1; i < 10; i++) {
-        if (board[i] === ' ') {
-            return i;
-        }
-    }
+    let n = 0;
+	do{
+		n = Math.floor(Math.random() * 9) + 1; // Generate a random number between 1 and 9
+		if(board[n] == ' ') {
+			return n; // Return the random number if the position is empty
+		}
+	}while(true);
 }
 function checkwin(sym) {
     if((board[1] == sym && board[2] == sym && board[3] == sym)||(board[4] == sym && board[5] == sym && board[6] == sym)

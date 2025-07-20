@@ -3,6 +3,7 @@ import { brain_of_comp } from "./skills.js"
 let boardState = ['',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 let pattern = Math.floor(Math.random()*10) % 3;
 let turn = 0;
+let godMode = false 
 let wins = 0, losts = 0, draws = 0; 
 function checkWin() {
     if((boardState[1] == 'X' && boardState[2] == 'X' && boardState[3] == 'X')||(boardState[4] == 'X' && boardState[5] == 'X' && boardState[6] == 'X')
@@ -47,18 +48,132 @@ function gameover(turn) {
     }
 }
 
+const threeDot = document.querySelector(".threeDot");
+threeDot.addEventListener('click', function() {
+    toss.style.transform = "scale(0) translate(110%)";
+    setTimeout(() => {toss.style.display = "none";
+        document.querySelector('.autoToss').style.display = 'flex';
+        setTimeout(() => {requestAnimationFrame(() => {
+            document.querySelector('.autoToss').style.transform = 'scale(1) translate(0%)';
+        });}, 100);
+    }, 300);
+});
+let toggled = false;
+const _state = document.getElementById('state');
+const tossToggle = document.querySelector('.outer');
+tossToggle.addEventListener('click', function() {
+    console.log("Toss toggle clicked"); // For debugging purposes
+    let innerCircle = document.querySelector('.inner');
+    innerCircle.style.position = 'absolute';
+    if (!toggled) {
+        toggled = true;
+        innerCircle.style.left = 'calc(100% - 1.75rem - 2.5px)';
+        innerCircle.style.backgroundColor = '#ffee00ff';
+        innerCircle.style.boxShadow = '0px 0px 10px 2px #ffee00ff';
+        _state.innerText = 'On';
+        _state.style.position = 'absolute';
+        _state.style.left = '65%';
+        console.log("Toggled to ON"); // For debugging purposes
+        return;
+    }
+    else {
+        toggled = false;
+        innerCircle.style.left = '2.5px';
+        innerCircle.style.backgroundColor = '#E8FFD7';
+        innerCircle.style.boxShadow = '5px 5px 10px 0px rgba(0, 0, 0, 0.404) inset';
+        _state.innerText = 'Off';
+        _state.style.position = 'absolute';
+        _state.style.left = '85%';
+        console.log("Toggled to OFF"); // For debugging purposes
+        return;
+    }
+});
+
+const backArrow = document.querySelector('.back');
+backArrow.addEventListener('click', function() {
+    console.log("Back arrow clicked"); // For debugging purposes
+    const autoToss = document.querySelector('.autoToss');
+    autoToss.style.transform = "scale(0) translate(-110%)";
+    setTimeout(() => {autoToss.style.display = "none"}, 300);
+    if(toggled) {
+        tossfunc('', toggled); // Call tossfunc with toggled state
+        showResult.style.display = "flex";
+        showResult.style.padding = "0 10px 0 25px";
+        showResult.style.fontSize = "1rem";
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                showResult.style.transform = "scale(1) translate(0%)";
+            });
+        }, 300);
+    }
+    else {
+        toss.style.display = "flex";
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                toss.style.transform = "scale(1) translate(0%)";
+            });
+        }, 300);
+    }
+});
+
 let toss = document.getElementById("toss");
 let faces = document.querySelectorAll('.faces');
-toss.addEventListener('click', function() {
+toss.addEventListener('click', function(details) {
+    if (details.target.className === 'threeDot' || details.target.className === 'ri-more-2-fill') {
+        return; // Ignore clicks on the three-dot icon
+    }
+    console.log(details.target.className, "\n", details.target); // For debugging purposes
+    toss.style.transform = "scale(0) translate(-110%)";
     setTimeout(() => {
-        toss.style.transform = "scale(0)"
         toss.style.display = "none";
-    }, 50);
-    setTimeout(() => {faces.forEach((val) => {
-        setTimeout(() => {val.style.display = "block";}, 50);
-        val.style.transform = "scale(1)";
-    });}, 50);
+        faces.forEach((val) => {
+            val.style.transform = "scale(0) translate(110%)";
+            val.style.display = "block";
+            requestAnimationFrame(() => {
+                val.style.transform = "scale(1) translate(0%)";
+            });
+        });
+    }, 300);
 });
+
+function tossfunc(choice = '', toggled = false) {
+    if (toggled && choice === '') {
+        choice = Math.floor(Math.random()*10) % 2 === 0 ? 'Heads' : 'Tails';
+    }
+    else {
+        console.log("Something went wrong with the toss function");
+        console.log("Choice:", choice, "\nToggled:", toggled); // For debugging purposes
+    }
+    let res = Math.floor(Math.random()*10) % 2 === 0 ? 'Heads' : 'Tails';
+    if (choice === res) {
+        tossResult = 'You won the toss!';
+        tossWinner = 1; // Player wins the toss
+    } else {
+        tossResult = 'You lost the toss!';
+        tossWinner = 0; // Computer wins the toss
+        startComputerTurn(); // Start computer's turn immediately
+    }
+
+    faces.forEach((val) => {
+        val.style.transform = "scale(0) translate(-110%)";
+        setTimeout(() => {
+            val.style.display = "none";
+        }, 300);
+    });
+    showResult.style.padding = "0 10px 0 25px";
+    showResult.style.fontSize = "1.2rem";
+    showResult.innerText = tossResult;
+    showResult.style.display = "flex";
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            showResult.style.transform = "scale(1) translate(0%)";
+        });
+    }, 300);
+    setTimeout(() => {
+        showResult.innerText = "Go!";
+        showResult.style.fontSize = "1.7rem";
+    }, 2000);
+}
 
 let tossResult = '';
 let tossBlock = document.querySelector('#status');
@@ -70,32 +185,7 @@ tossBlock.addEventListener('click', function(details) {
         return; // Ensure we only handle clicks on the faces
     }
     choice = choice.innerText; // Get the text of the clicked face
-    let res = Math.floor(Math.random()*10) % 2 == 0 ? 'Heads' : 'Tails';
-    
-    if (choice === res) {
-        tossResult = 'You won the toss!';
-        tossWinner = 1; // Player wins the toss
-    }
-    else {
-        tossResult = 'You lost the toss!';
-        tossWinner = 0; // Computer wins the toss
-        startComputerTurn(); // Start computer's turn immediately
-    }
-    setTimeout(() => {faces.forEach((val) => {
-        setTimeout(() => {val.style.transform = "scale(0)";}, 50);
-        val.style.display = "none";
-    });}, 300);
-    showResult.innerText = tossResult;
-    showResult.style.display = "flex";
-    showResult.style.padding = "0 10px 0 25px";
-    showResult.style.fontSize = "1.2rem";
-    requestAnimationFrame(() => {
-        showResult.style.transform = "scale(1)";
-    });
-    setTimeout(() => {
-        showResult.innerText = "Go!";
-        showResult.style.fontSize = "1.5rem";
-    }, 2000);
+    tossfunc(choice);
 });
 
 let board = document.querySelector('.main');
@@ -104,9 +194,9 @@ let ref = 0;
     board.addEventListener('click', function(details) {
         
         if (showResult.innerText === 'Memes') {
-            toss.innerText = "Please toss first!";
-            toss.style.fontSize = "1.2rem";
-            toss.style.padding = "0 10px 0 25px";
+            toss.style.transform = 'scale(1.2)';
+            setTimeout(() => {toss.style.transform = 'scale(1)'}, 300);
+            toss.style.fontSize = "1rem";
             return;
         }
         else if (tossWinner % 2 === 0) {
@@ -147,16 +237,14 @@ function startComputerTurn() {
     if(tossWinner % 2 === 0) {
         setTimeout(function () {
             if(showResult.innerText === 'Memes') {
-                console.log(showResult.innerText);
                 return;
             }
-            console.log(showResult.innerText);
             turn ++;
             tossWinner++;
             let repeat = true;
                 
             while (repeat && turn < 10) {            
-                let compMove = brain_of_comp(boardState, turn, ref, pattern);
+                let compMove = brain_of_comp(boardState, turn, ref, pattern, godMode);
                 const C_box = document.getElementById('box' + compMove);
                 if (C_box.innerHTML === C_box.textContent) {
                     displayboard(C_box, turn, compMove);                
@@ -177,20 +265,38 @@ function startComputerTurn() {
         }, 300);
     }
 }
+
+const expert = document.getElementById("hard");
+expert.addEventListener('click', function() {
+    if (expert.innerText === 'Off'){
+        godMode = true;
+        expert.innerText = 'On';
+        expert.style.backgroundColor = '#ffee00ff';
+        expert.style.boxShadow = '0px 0px 10px 2px #ffee00ff';
+    }
+    else{
+        godMode = false;
+        expert.innerText = 'Off';
+        expert.style.boxShadow = '0px 0px 0px 0px #ffee00ff';
+        expert.style.backgroundColor = '#E8FFD7';
+    }
+
+});
 const rematch = document.getElementById("rematch")
 rematch.addEventListener('click', function(){
     document.querySelector('.gameover').style.transform = "translate(-50%, -50%) scale(0)";   
     boardState = ['',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     turn = 0; // number of current turn
     tossWinner = 0; // Reset toss winner
-    showResult.innerText = 'Memes';
-    showResult.style.transform = "scale(0)";
-    showResult.style.display = "none";
-    toss.innerText = "Click to Toss!";
-    toss.style.display = "flex";
-    requestAnimationFrame(() => {
-        toss.style.transform = "scale(1)";
-    });
+    if(!toggled){
+        showResult.innerText = 'Memes';
+        showResult.style.transform = "scale(0) translate(110%)";
+        setTimeout(() => {showResult.style.display = "none"}, 300);
+        toss.style.display = "flex";
+        requestAnimationFrame(() => {
+            toss.style.transform = "scale(1) translate(0%)";
+        });
+    }
     setTimeout(() => {
         document.getElementById('result').innerText = "Match is Drawn!";
     }, 300);
@@ -203,5 +309,8 @@ rematch.addEventListener('click', function(){
             box.style.backgroundColor = '#3E5F44' ;
         }
         i++;
+    }
+    if(toggled) {
+        tossfunc('', toggled); // Reset toss function with toggled state
     }
 });
